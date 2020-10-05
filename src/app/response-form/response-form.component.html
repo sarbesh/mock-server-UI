@@ -1,0 +1,51 @@
+<div [hidden]="submitted">
+    <h1>Response form</h1>
+    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+<form [formGroup]="responseForm">
+    <div class="form-group">
+    <label for="mockId">Mock Id: </label>
+    <input type="text" class="form-control" id="mockId"
+         required
+         formControlName="mockId" name="mockId">
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-2">
+            <label for="statusCode">Response code: </label>
+            <input type="number" class="form-control" id="statusCode"
+                 required
+                 formControlName="statusCode" name="statusCode">
+            </div>
+            <div class="form-group col-md-2">
+                <label for="delay">delay in ms: </label>
+                <input type="number" class="form-control" id="delay"
+                     required
+                     formControlName="delay" name="delay">
+                </div>
+            <div class="form-group col-md-2">
+                <label for="contentType">content Type: </label>
+                <input type="text" class="form-control" id="contentType"
+                     formControlName="contentType" name="contentType">
+            </div>
+            <div class="form-group col-md-2">
+                <label for="encoding">Encoding: </label>
+                <input type="text" class="form-control" id="encoding"
+                        formControlName="encoding" name="encoding">
+            </div>
+    </div>
+    <h3>Headers</h3> <button (click)="addHeader()">Add Header</button>
+    <div formArrayName="headers" *ngFor="let header of getHeaders.controls; let i = index;">
+        <tr [formGroupName]="i">
+            <td><input class="form-control" type="text" formControlName="name"/></td>
+            <td><input class="form-control" type="text" formControlName="value"/></td>
+            <td><button (click)="Remove(i)" >Remove</button></td>
+        </tr>
+    </div>
+    <div>
+        <label for="Body">Body : </label>
+        <input type="text" class="form-control" id="body"
+                formControlName="body" name="body">
+    </div>
+    <button mat-raised-button type="submit" class="btn btn-success" (click)="onSubmit()" [disabled]="!responseForm.valid"><mat-icon>save</mat-icon> Response</button>
+</form>
+</div>
+

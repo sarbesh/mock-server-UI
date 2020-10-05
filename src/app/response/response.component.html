@@ -1,0 +1,37 @@
+<div class="row">
+    <div class="col-sm">
+    <h2>Response</h2>
+    <!-- <button (onClick)="response-service.findAll()">Refresh</button> -->
+    <ul class="responses">
+        <li *ngFor="let response of responses" responseSpy [class.selected]="response === selectedResponse" (click)="onSelect(response)">
+            <div>{{response.mockId}}</div>
+            <mat-divider></mat-divider>
+        </li>
+    </ul>
+</div>
+<div *ngIf="selectedResponse" class="col-sm-9">
+    <div class="card">
+        <div class="card-header">
+            {{selectedResponse.mockId | uppercase}} Details
+          </div>
+    <div class="card-body">
+        <div><span>statusCode: </span>{{selectedResponse.statusCode}}</div>
+    <div><span>Delay:</span>{{selectedResponse.delay}}</div>
+        <div><span>Headers: </span>
+            <ul>
+                <li *ngFor="let header of selectedResponse.headers">
+                    {{header.name}} <span>: </span> {{header.value}}
+                </li>
+            </ul>
+        </div>
+    <div><span>body: </span>{{selectedResponse.body | json}}</div>
+    <div class="example-button-row">
+    <button mat-raised-button (click)="onEdit(selectedResponse)" color="primary"><mat-icon>edit</mat-icon> Response</button>
+    <button mat-raised-button (click)="onDelete(selectedResponse.mockId)" color="warn"><mat-icon>delete</mat-icon> Response</button>
+    </div>
+    <!-- <button type="button" (click)="onEdit(selectedResponse)" class="btn btn-primary">Edit</button> -->
+    <!-- <button type="button" (click)="onDelete(selectedResponse.mockId)" class="btn btn-danger">Delete</button> -->
+    </div>
+    </div>
+    </div>
+</div>
